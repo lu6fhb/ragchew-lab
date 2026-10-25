@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<!-- © 2026 LU6FHB. Todos los derechos reservados. Prohibida la copia, modificación o redistribución sin autorización escrita del autor. -->
+<meta name="author" content="LU6FHB">
+<meta name="copyright" content="© 2026 LU6FHB. Todos los derechos reservados.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RagChew+ Lab · LU6FHB</title>
+<meta name="description" content="Practicá CW con una estación virtual: keyer iámbico en el navegador, copia y feedback. Hecho por LU6FHB.">
+<meta property="og:title" content="RagChew+ Lab · LU6FHB">
+<meta property="og:description" content="Practicá QSOs en Morse con una estación virtual, desde el teclado o la pantalla táctil.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main>
+<header class="top">
+<div class="brand"><svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><rect x="6" y="17.5" width="28" height="5" rx="2.5" fill="currentColor"/><g fill="#ffb454"><circle cx="20" cy="5.5" r="2.6"/><circle cx="20" cy="12" r="2.6"/><circle cx="20" cy="28" r="2.6"/><circle cx="20" cy="34.5" r="2.6"/></g></svg>
+<div><h1>RagChew<i>+</i><span>Lab</span></h1><a class="by" href="https://www.qrz.com/db/LU6FHB" target="_blank" rel="noopener">LU6FHB</a></div></div>
+<div class="tools"><select id="lang" aria-label="Idioma / Language"><option value="es">Español</option><option value="en">English</option></select><button id="bset" data-i="seth"></button><button id="bshare" data-i="share"></button></div>
+</header>
+<p class="sub" data-i="sub"></p>
+<section class="rig">
+<label class="cell"><small data-i="md"></small><select id="md"><option value="n" data-i="mn"></option><option value="r" data-i="mr"></option></select></label>
+<label class="cell"><small data-i="km"></small><select id="km"><option value="b" data-i="kb"></option><option value="a" data-i="ka"></option><option value="g" data-i="kg"></option><option value="s" data-i="ks"></option></select></label>
+<label class="cell"><small>WPM</small><input type="number" id="wpm" value="15" min="5" max="40"></label>
+<label class="cell"><small data-i="tone"></small><input type="number" id="tone" value="600" min="300" max="1000" step="10"></label>
+<div class="leds"><span class="led rx" id="lrx"><i></i>RX</span><span class="led tx" id="ltx"><i></i>TX</span></div>
+<div id="sh" hidden><label class="chk"><span data-i="shn"></span><input type="range" id="shf" min="-600" max="600" step="5" value="0" style="flex:1"><b id="shv" title="0" style="cursor:pointer">0 Hz</b></label><svg id="sp" viewBox="-600 0 1200 24" preserveAspectRatio="none" aria-hidden="true"></svg></div>
+</section>
+<div class="row"><input type="text" id="call" autocapitalize="characters" autocomplete="off"><button class="pri" id="bnew" data-i="new"></button><button class="pri" id="bcq" data-i="cq"></button><button class="pri" id="bfree" data-i="free"></button><button class="pri" id="btr" data-i="trn"></button></div>
+<div class="row sec"><button id="bpause" data-i="pau"></button><button id="bstop" data-i="stp"></button><button id="bev" data-i="evl" hidden></button><button id="bend" data-i="end"></button><button id="bpg" data-i="prog"></button><button id="brev" data-i="rev"></button></div>
+<div id="tz" class="card" hidden>
+<div class="grid"><label><span data-i="tc"></span><select id="tc"><option value="q" data-i="tcq"></option><option value="c" data-i="tcc"></option><option value="w" data-i="tcw"></option><option value="l" data-i="tcl"></option><option value="n" data-i="tcn"></option><option value="a" data-i="tca"></option><option value="x" data-i="tcx"></option></select></label>
+<label><span data-i="tlen"></span><input type="number" id="tlen" value="6" min="1" max="20"></label>
+<div class="cell2"><span class="lbl" data-i="tsp"></span><div class="spd"><button id="tdn">−</button><b id="tw">15</b><button id="tup">+</button></div></div></div>
+<div class="row"><button class="pri" id="tnext" data-i="tnx"></button><button id="trep" data-i="trp"></button><button id="tpau" data-i="pau"></button><button id="tcmp" data-i="tcmp"></button></div>
+<input type="text" id="tcopy" autocomplete="off" autocapitalize="characters" spellcheck="false">
+<div id="tinfo"></div>
+</div>
+<div id="tr" class="log" aria-live="polite"></div>
+<details id="nb" class="nb" hidden open><summary data-i="nb"></summary><div class="grid">
+<label><span data-i="nbc"></span><input type="text" id="nbc" autocomplete="off" autocapitalize="characters"></label>
+<label><span data-i="nbn"></span><input type="text" id="nbn" autocomplete="off" autocapitalize="characters"></label>
+<label><span data-i="nbq"></span><input type="text" id="nbq" autocomplete="off" autocapitalize="characters"></label>
+<label><span data-i="nbr"></span><input type="text" id="nbr" autocomplete="off" autocapitalize="characters"></label>
+<label style="grid-column:1/-1"><span data-i="nbx"></span><input type="text" id="nbx" autocomplete="off"></label></div>
+<div class="row"><button class="pri" id="nbadd" data-i="nbi"></button><button id="nbcsv" data-i="nbcp"></button></div><div id="nbl"></div></details>
+<div class="dock"><div id="live" class="scope"></div><div class="pad"><button id="pd"></button><button id="pa"></button></div></div>
+<div id="status"></div>
+<div id="fb" hidden></div>
+<div id="pg" hidden></div>
+<footer data-i="foot"></footer>
+<dialog id="dlg"><div class="dh"><b data-i="set"></b><button id="dclose" aria-label="Cerrar">✕</button></div>
+<fieldset><legend data-i="g1"></legend><div class="grid">
+<label><span data-i="swpm"></span><input type="number" id="swpm" value="15" min="5" max="40"></label>
+<label><span data-i="sm"></span><select id="sm"><option value="p" data-i="sp"></option><option value="i" data-i="si"></option><option value="b" data-i="sb"></option><option value="s" data-i="ss"></option><option value="r" data-i="sr"></option></select></label>
+<label><span data-i="qt"></span><select id="qt"><option value="a" data-i="qta"></option><option value="b" data-i="qtb"></option><option value="r" data-i="qtr"></option><option value="x" data-i="qtx"></option></select></label>
+<label><span data-i="pm"></span><select id="pm"><option value="0" data-i="p0"></option><option value="1" data-i="p1"></option></select></label>
+<label><span data-i="fws"></span><input type="number" id="fw" value="0" min="0" max="40"></label></div></fieldset>
+<fieldset><legend data-i="g2"></legend><div class="row"><button id="kd"></button><button id="ka"></button><button id="kre" data-i="kre"></button></div>
+<label class="chk"><input type="checkbox" id="swap"><span data-i="swap"></span></label><label class="chk"><input type="checkbox" id="mp"><span data-i="mp"></span></label></fieldset>
+<fieldset><legend data-i="g3"></legend><div class="grid"><label><span data-i="vol"></span><input type="number" id="vol" value="30" min="1" max="100"></label></div></fieldset>
+<details id="rp" hidden><summary data-i="rs"></summary><div class="grid">
+<label><span data-i="qsb"></span><input type="number" id="qsb" value="50" min="0" max="100"></label>
+<label><span data-i="qr"></span><input type="number" id="qr" value="8" min="2" max="30"></label>
+<label><span data-i="nz"></span><input type="number" id="nz" value="30" min="0" max="100"></label>
+<label><span data-i="bw"></span><input type="number" id="bw" value="400" min="100" max="2400" step="50"></label>
+<label><span data-i="qrm"></span><input type="number" id="qrm" value="1" min="0" max="3"></label>
+<label><span data-i="pile"></span><input type="number" id="pile" value="2" min="0" max="5"></label>
+<label><span data-i="err"></span><input type="number" id="err" value="15" min="0" max="60"></label>
+</div></details>
+<details><summary data-i="mine"></summary><textarea id="mine" rows="5" placeholder="LU1XYZ, CARLOS, CORDOBA, IC7300, DIPOLE"></textarea><label class="chk"><input type="checkbox" id="only"><span data-i="only"></span></label></details>
+</dialog>
+</main>
+<script src="js/01-base.js"></script>
+<script src="js/02-audio.js"></script>
+<script src="js/03-realista.js"></script>
+<script src="js/04-i18n.js"></script>
+<script src="js/05-keyer.js"></script>
+<script src="js/06-estacion.js"></script>
+<script src="js/07-motor.js"></script>
+<script src="js/08-flujo.js"></script>
+<script src="js/09-progreso.js"></script>
+<script src="js/10-modos.js"></script>
+<script src="js/11-entrenador.js"></script>
+<script src="js/12-libreta.js"></script>
+<script src="js/13-ui.js"></script>
+</body>
+</html>
