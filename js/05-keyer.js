@@ -8,7 +8,7 @@ function press(x,d){const el=$(x=='.'?'pd':'pa'),m=mode();
 if(!K.en){K.p={'.':0,'-':0};if(K.mt)manual(0);el.classList.remove('on');return}
 el.classList.toggle('on',!!d);if(m=='s'||(m=='g'&&x=='-'))return manual(d);
 K.p[x]=d?1:0;if(d){K.mem[x]=1;audio()}else if(m=='a'&&K.ph!='idle'&&x!=K.cur)K.mem[x]=0}
-function emit(){const c=REV[K.sym]||'¿';if(c=='¿')K.bad++;K.sym='';K.pw=1;onChar(c)}
+function emit(){const c=/^\.{6,}$/.test(K.sym)?'<ERR>':(REV[K.sym]||'¿');if(c=='¿')K.bad++;if(c=='<ERR>')K.cor=(K.cor||0)+1;K.sym='';K.pw=1;onChar(c)}
 function note(now){if(K.lastEnd==null)return;const r=(now-K.lastEnd)/dit();if(r>=2){if(K.sym)emit();if(r>=5){if(K.pw){K.pw=0;onWord()}K.wg.push(r)}else K.lg.push(r)}}
 function start(x,now){note(now);K.mem[x]=0;K.cur=x;K.ph='on';K.until=now+dit()*(x=='.'?1:3);gate(1)}
 function tick(){const now=performance.now();
