@@ -13,7 +13,7 @@ function lv(a,b){const D=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;
 function cdist(a,b){const D=Array.from({length:a.length+1},(_,i)=>[i]);for(let j=1;j<=b.length;j++)D[0][j]=j;
 for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++){const x=a[i-1],y=b[j-1],s=x==y?0:lv(MX(x),MX(y))/Math.max(MX(x).length,MX(y).length,1);D[i][j]=Math.min(D[i-1][j]+1,D[i][j-1]+1,D[i-1][j-1]+s)}return D[a.length][b.length]}
 const mask=(h,e)=>h.length==e.length?[...h].map((c,i)=>c==e[i]?c:'?').join(''):h+'?';
-function heardCall(tk){const p=st.p,exp=$('call').value.trim().toUpperCase(),cs=tk.filter(x=>x!=p.c&&!SW.includes(x)&&x.length>=3&&!/^[0-9]+$/.test(x)),i=tk.indexOf('DE');
+function heardCall(tk){if(typeof tk==='string')tk=tk.trim().toUpperCase().split(/\s+/).filter(Boolean);else if(tk&&!Array.isArray(tk))tk=Array.from(tk);if(!Array.isArray(tk))tk=[];const p=st.p,exp=$('call').value.trim().toUpperCase(),cs=tk.filter(x=>x!=p.c&&!SW.includes(x)&&x.length>=3&&!/^[0-9]+$/.test(x)),i=tk.indexOf('DE');
 let h=i>=0&&tk[i+1]&&tk[i+1]!=p.c&&!SW.includes(tk[i+1])?tk[i+1]:null;
 if(exp&&!h)h=cs.map(x=>[cdist(x,exp),x]).sort((a,b)=>a[0]-b[0])[0]?.[1];if(!h)h=cs.find(isCall)||cs[0];
 if(!h)return{say:tk.includes(p.c)?`QRZ? ${eos()}`:`QRZ? QRZ? ${eos()}`};
