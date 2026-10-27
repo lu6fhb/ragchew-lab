@@ -20,7 +20,7 @@ if(K.lastEnd!=null&&!K.mt){const r=(now-K.lastEnd)/dit();if(K.sym&&r>=2)emit();i
 setInterval(tick,2);
 function newTurn(){K.sym='';K.lastEnd=null;K.pw=0;K.mt=0;K.ue=1.2/num('wpm')*1000;K.p={'.':0,'-':0};K.mem={'.':0,'-':0};K.en=1}
 const sw=x=>$('swap').checked?opp(x):x,kp=(x,d)=>press(mode()=='s'?x:sw(x),d);
-const pad=(el,x)=>{el.addEventListener('pointerdown',e=>{if(e.pointerType=='mouse'&&mp())return;e.preventDefault();el.setPointerCapture(e.pointerId);kp(x,1)});['pointerup','pointercancel'].forEach(t=>el.addEventListener(t,e=>{if(e.pointerType=='mouse'&&mp())return;kp(x,0)}))};
+const pad=(el,x)=>{el.addEventListener('pointerdown',e=>{if(e.pointerType=='mouse'){autoMp(e);if(mp())return}e.preventDefault();el.setPointerCapture(e.pointerId);kp(x,1)});['pointerup','pointercancel'].forEach(t=>el.addEventListener(t,e=>{if(e.pointerType=='mouse'&&mp())return;kp(x,0)}))};
 pad($('pd'),'.');pad($('pa'),'-');
 let KEYS={d:'z',a:'x'},capK=null;try{Object.assign(KEYS,JSON.parse(localStorage.getItem('cwb_keys')||'{}'))}catch(e){}
 const shk=k=>k==' '?'Space':k.length==1?k.toUpperCase():k,pk=e=>{const k=(e.key||'').toLowerCase();return k==KEYS.d?'.':k==KEYS.a?'-':(k==' '&&mode()=='s')?'.':null};

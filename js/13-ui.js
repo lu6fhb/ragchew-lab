@@ -10,7 +10,8 @@ $('bset').onclick=()=>$('dlg').showModal();$('dclose').onclick=()=>$('dlg').clos
 $('kd').onclick=()=>{capK='d';kl()};$('ka').onclick=()=>{capK='a';kl()};$('kre').onclick=()=>{KEYS={d:'z',a:'x'};try{localStorage.removeItem('cwb_keys')}catch(e){}capK=null;kl();padL()};
 try{if(!localStorage.getItem('cwb_seen')){localStorage.setItem('cwb_seen','1');setTimeout(()=>$('dlg').showModal(),500)}}catch(e){}$('bcq').onclick=newCq;$('bfree').onclick=startFree;$('bev').onclick=evalFree;$('bpause').onclick=pauseQso;$('bstop').onclick=stopQso;
 const mp=()=>$('mp').checked,mb={0:'.',2:'-'},mcap=e=>mp()&&!e.target.closest('button:not(#pd):not(#pa),input,select,textarea,summary,a,label');
-addEventListener('mousedown',e=>{if(mcap(e)&&e.button in mb){e.preventDefault();e.stopPropagation();kp(mb[e.button],1)}},true);
+function autoMp(e){if(!mp()&&e.button==2&&!(e.target.closest&&e.target.closest('input,select,textarea'))){$('mp').checked=true;$('mp').onchange();status(T('mpon'))}}
+addEventListener('mousedown',e=>{autoMp(e);if(mcap(e)&&e.button in mb){e.preventDefault();e.stopPropagation();kp(mb[e.button],1)}},true);
 addEventListener('mouseup',e=>{if(mp()&&e.button in mb){e.preventDefault();kp(mb[e.button],0)}},true);
 addEventListener('contextmenu',e=>{if(mcap(e))e.preventDefault()},true);
 try{const c=JSON.parse(localStorage.getItem('cwb_chk')||'{}');$('mp').checked=!!c.mp;$('only').checked=!!c.only}catch(e){}
@@ -30,3 +31,4 @@ $('brev').onclick=reveal;$('bnew').onclick=newQso;$('bend').onclick=finish;
 $('bshare').onclick=async()=>{const d={title:'RagChew+ Lab · LU6FHB',text:'RagChew+ Lab - LU6FHB',url:location.href};
 try{if(navigator.share){await navigator.share(d);return}await navigator.clipboard.writeText(d.url);status(T('link'))}catch(e){status(T('nolink'))}};
 applyLang();
+addEventListener('error',e=>{try{status('⚠ '+(e.message||'error'));line('mu','⚠',(e.message||'')+' ('+String(e.filename||'').split('/').pop()+':'+e.lineno+')')}catch(_){}});

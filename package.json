@@ -1,6 +1,6 @@
 {
   "name": "ragchew-lab",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "RagChew+ Lab: compañero virtual y entrenador de CW (Morse) que funciona en el navegador, sin conexión.",
   "private": true,
   "license": "UNLICENSED",

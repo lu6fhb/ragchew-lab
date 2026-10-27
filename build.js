@@ -7,11 +7,11 @@ const root = __dirname;
 let html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
 html = html.replace(/<link rel="stylesheet" href="([^"]+)">/g,
-  (m, f) => '<style>\n' + fs.readFileSync(path.join(root, f), 'utf8') + '</style>');
+  (m, f) => '<style>\n' + fs.readFileSync(path.join(root, f.split('?')[0]), 'utf8') + '</style>');
 
 const js = [];
 html = html.replace(/<script src="([^"]+)"><\/script>\n?/g,
-  (m, f) => { js.push(fs.readFileSync(path.join(root, f), 'utf8')); return ''; });
+  (m, f) => { js.push(fs.readFileSync(path.join(root, f.split('?')[0]), 'utf8')); return ''; });
 html = html.replace('</body>', () => '<script>\n' + js.join('\n') + '</script>\n</body>');
 
 fs.mkdirSync(path.join(root, 'dist'), { recursive: true });

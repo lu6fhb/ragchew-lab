@@ -13,7 +13,7 @@ function onChar(c){if(busy)return;if(fm){if(!ft0)ft0=performance.now();ft1=perfo
 if(c=='<ERR>'){tx=tx.replace(/\S+\s*$/,'');$('live').textContent=tx;clearTimeout(sil);sil=setTimeout(endTurn,fm?4000:5000);return}tx+=c;$('live').textContent=tx;clearTimeout(sil);sil=setTimeout(endTurn,fm?4000:5000)}
 function onWord(){if(busy||!tx||tx.endsWith(' '))return;tx+=' ';const x=tx.trim().split(/\s+/);if(!fm&&END.includes(x[x.length-1]))endTurn()}
 function endTurn(){clearTimeout(sil);if(fm){commitFree();return}if(busy)return;const t=tx.trim();if(!t)return;busy=1;K.en=0;tx='';$('live').textContent='';
-line('me',T('wy'),t);const r=md()=='r'?realResp(t):respond(t);if(r){const d=1200+(st.dl||0);st.dl=0;setTimeout(()=>station(r.t,r.done),d)}else if(st.s!='DONE'){tx='';newTurn();busy=0;status(T(st.s=='WCQ'?'nores':'turn'))}}
+line('me',T('wy'),t);let r;try{r=md()=='r'?realResp(t):respond(t)}catch(err){console.error(err);line('mu','⚠',String(err&&err.message||err));r={t:'PSE AGN? K',done:false}}if(r){const d=1200+(st.dl||0);st.dl=0;setTimeout(()=>station(r.t,r.done),d)}else if(st.s!='DONE'){tx='';newTurn();busy=0;status(T(st.s=='WCQ'?'nores':'turn'))}}
 function cmp(a,b){a=a.toUpperCase().split(/\s+/).join(' ').trim();b=b.toUpperCase().split(/\s+/).join(' ').trim();const n=a.length,m=b.length,D=Array.from({length:n+1},()=>new Array(m+1).fill(0));
 for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)D[i][j]=a[i-1]==b[j-1]?D[i-1][j-1]+1:Math.max(D[i-1][j],D[i][j-1]);
 const bw=b.split(' ');return{acc:100*D[n][m]/Math.max(n,1),miss:a.split(' ').filter(x=>!bw.includes(x))}}
