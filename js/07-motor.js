@@ -89,7 +89,7 @@ if(st.s=='WCQ'){if(!(has('CQ')||has('QRZ')))return null;const i=tk.indexOf('DE')
 if(ex)st.uc=ex;else if(c&&isCall(c)){st.uc=c;$('call').value=c}st.s='CALLED';st.dl=Math.random()*2500;if(md()=='r'&&num('pile')>0)st.pq=1;
 return say(pick([`${p.c} ${p.c}`,`${p.c} ${p.c} K`,`${st.uc||call()} DE ${p.c} ${p.c} K`]))}
 if(st.s=='CALLED'){if(!tk.some(x=>x.length>=3&&cdist(x,p.c)<=1.2)){st.ct2++;return say(st.ct2>2?`QRZ? ${eos()}`:`${p.c} ${p.c} ${eos(.3)}`)}return afterId(say)}
-if(st.s=='CQ'){const hr=heardCall(tk);if(hr.say)return say(hr.say);
+if(st.s=='CQ'){const hr=heardCall(n);if(hr.say)return say(hr.say);
 if(md()=='r'&&num('pile')>0&&st.pt<(num('pile')>3?2:1)){st.pt++;st.pq=1;return say(`${pick(CALLS)} 5NN`)}
 return afterId(say)}
 if(st.s=='DX'){st.s='DONE';return say(`${pick(['TU 73','R TU','TU 73 QRZ?'])} DE ${p.c}`,1)}

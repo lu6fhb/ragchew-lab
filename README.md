@@ -11,6 +11,7 @@ Hecho por [LU6FHB](https://www.qrz.com/db/LU6FHB).
 - **Práctica libre:** manipulás lo que quieras y **Evaluar** mide velocidad, espaciado y regularidad.
 - **Entrenador de copia:** la estación transmite mensajes de QSO, indicativos, palabras, números, abreviaturas o mezclas; escribís lo que copiás y se resaltan las diferencias.
 - **Libreta del QSO:** anotás indicativo, nombre, QTH, RST y notas; se validan contra lo que dijo la estación y se guardan en una lista exportable a CSV.
+- **Correcciones:** enviar 6 o más puntos seguidos borra la palabra anterior, como en la operación real.
 - **Manipuladores:** iámbico A/B, bug y recto, con teclas configurables, botones táctiles y soporte de paddle USB que el sistema detecta como ratón (clic izquierdo = punto, derecho = raya).
 - **Modo realista:** ruido, QSB aleatorio, filtro de CW, interferencias, pileup con shift y errores de la estación. Opción Farnsworth.
 - **Progreso:** historial, gráficos y matriz de confusiones por carácter.

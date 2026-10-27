@@ -15,10 +15,17 @@ for(let i=0;i<num('qrm');i++)sig(pick(QR),10+Math.random()*14,pick(['i','b','s']
 playT=setTimeout(done,(end-ac.currentTime)*1000+150)}
 function pileBG(n){chain();const v=num('vol')/100,t0=ac.currentTime+.4,used=[st?st.off:0];for(let i=0;i<n;i++){const c=pick(CALLS);let o,k=0;do o=Math.round(Math.random()*800-400);while(k++<30&&used.some(u=>Math.abs(u-o)<70));used.push(o);sig(c+' '+c,12+Math.random()*14,pick(['i','b','s']),o,v*(.5+Math.random()*.5),t0+Math.random()*1.5,num('qsb')/100,num('qr')*(.7+Math.random()*.6))}}
 const mut=c=>{const i=Math.random()*c.length|0,a='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';let x;do x=a[Math.random()*36|0];while(x==c[i]);return c.slice(0,i)+x+c.slice(i+1)},say2=x=>({t:(st.last=x),done:false});
+// Modo realista: la estación puede perder PARTE de lo que dijiste (QSB) y pide justo eso, en vez de repetir todo
 function realResp(t){const e=num('err')/100,U=t.toUpperCase();
-if(st.fx&&/(\bNO\b|\bAGN\b|\bCALL\b|\?)/.test(U)){st.fx=0;return say2(`R R ${st.uc||call()} ${st.uc||call()} ${eot()}`)}
-if(st.s!='CQ'&&st.s!='DONE'&&!/\b(AGN|RPT|QRS)\b/.test(U)&&Math.random()<e)return say2(`PSE AGN? ${eot()}`);
-const r=respond(t);if(r&&st.s=='RPT'&&!st.fx&&r.t.includes('RST')&&Math.random()<e){st.fx=1;const cu=st.uc||call();r.t=r.t.split(cu).join(mut(cu));st.last=r.t}return r}
+if(st.fx&&/(\bNO\b|\bAGN\b|\bCALL\b|\?)/.test(U)){st.fx=0;const c=st.uc||call();return say2(`R R ${c} ${c} ${eot()}`)}
+const snap=JSON.parse(JSON.stringify({s:st.s,ct:st.ct,tp:st.tp,told:st.told,asked:st.asked,u:st.u,pending:st.pending,hist:st.hist,last:st.last,slow:st.slow,uc:st.uc,said:st.said}));
+const r=respond(t);if(!r||r.done||st.ty=='x')return r;
+if(st.s=='RPT'&&!st.fx&&!st.fx2&&r.t.includes('RST')&&Math.random()<e){st.fx=1;st.fx2=1;const cu=st.uc||call();r.t=r.t.split(cu).join(mut(cu));st.last=r.t;return r}
+const nw=['qth','name','rig','ant','wx','job'].filter(k=>st.u[k]&&st.u[k]!==snap.u[k]);
+if(nw.length&&st.turn-(st.lastLoss||-9)>=3&&Math.random()<e){const k=pick(nw),after={...st.u};Object.assign(st,snap);const keep={...snap.u};for(const x in after)if(after[x]!==snap.u[x]&&x!==k)keep[x]=after[x];
+st.u=keep;st.pending=k;st.asked[k]=1;st.lastLoss=st.turn;const kw={name:li?'NAME':'NOMBRE',qth:'QTH',rig:'RIG',ant:'ANT',wx:li?'WX':'CLIMA',job:li?'JOB':'TRABAJO'}[k];
+return say2(`${pick(['R R','R'])} ${pick(['PSE','PSE UR'])} ${kw} AGN? ${eot()}`)}
+return r}
 function play(text,wpm,done){audio();osc.frequency.value=num('tone')+50;const v=num('vol')/100;let t=ac.currentTime+0.1;
 enc(text,wpm,sstyle,num('fw')).forEach(([on,d])=>{g.gain.setTargetAtTime(on?v:0,t,0.003);t+=d});g.gain.setTargetAtTime(0,t,0.003);
 playT=setTimeout(()=>{osc.frequency.value=num('tone');done()},(t-ac.currentTime)*1000+150)}

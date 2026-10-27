@@ -3,7 +3,7 @@ const HK='cwb_hist',CK='cwb_conf';
 const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 function align(a,b){const n=a.length,m=b.length,D=Array.from({length:n+1},(_,i)=>[i]);for(let j=1;j<=m;j++)D[0][j]=j;
 for(let i=1;i<=n;i++)for(let j=1;j<=m;j++)D[i][j]=Math.min(D[i-1][j]+1,D[i][j-1]+1,D[i-1][j-1]+(a[i-1]==b[j-1]?0:1));
-const ops=[];let i=n,j=m;while(i>0||j>0){if(i&&j&&D[i][j]==D[i-1][j-1]+(a[i-1]==b[j-1]?0:1)){ops.push([a[i-1],b[j-1]]);i--;j--}else if(i&&D[i][j]==D[i-1][j]+1){ops.push([a[i-1],'']);i--}else{ops.push(['',b[j-1]]);j--}}return ops}
+const ops=[];let i=n,j=m;while(i>0||j>0){if(i&&j&&D[i][j]==D[i-1][j-1]+(a[i-1]==b[j-1]?0:1)){ops.push([a[i-1],b[j-1]]);i--;j--}else if(i&&D[i][j]==D[i-1][j]+1){ops.push([a[i-1],'']);i--}else{ops.push(['',b[j-1]]);j--}}return ops.reverse()}
 function recConf(sent,copied){const C=ld(CK,{c:{},s:{}}),cl=x=>x.toUpperCase().replace(/[^A-Z0-9ÑÇ?\/.,]/g,'');
 align(cl(sent),cl(copied)).forEach(([x,y])=>{if(!x)return;C.s[x]=(C.s[x]||0)+1;if(x!=y){const r=C.c[x]=C.c[x]||{},k=y||'·';r[k]=(r[k]||0)+1}});sv(CK,C)}
 function recSession(){const H=ld(HK,[]),a=rx.filter(r=>!r.self).map(r=>r.acc),ra=K.dh.length>2&&K.dt.length>2?mean(K.dh)/mean(K.dt):null;
