@@ -1,16 +1,22 @@
-Copyright (c) 2026 LU6FHB. Todos los derechos reservados.
-Copyright (c) 2026 LU6FHB. All rights reserved.
+Copyright (c) 2026 LU6FHB
 
-Este software y su código fuente son propiedad de su autor (LU6FHB).
-No se permite copiar, modificar, redistribuir ni usar con fines comerciales
-sin autorización escrita del autor. Se permite su uso personal a través de
-la página publicada.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This software and its source code are the property of its author (LU6FHB).
-Copying, modifying, redistributing or commercial use is not permitted
-without the author's written permission. Personal use through the published
-page is allowed.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-(Para cambiar las condiciones, reemplazá este archivo por la licencia que
-elijas, por ejemplo MIT o Creative Commons BY-NC, y actualizá el pie de
-página y los metadatos de index.html.)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Original author: LU6FHB
+Original software created by LU6FHB. Modifications and contributions by other developers should be credited separately.
