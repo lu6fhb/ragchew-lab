@@ -44,45 +44,7 @@ build.js          une todo en dist/RagChewLab.html
 
 La guía [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) explica qué hace cada archivo y cómo agregar estaciones, textos, idiomas o temas de charla.
 
-## Publicarlo en GitHub (paso a paso)
-
-1. Instalá [Git](https://git-scm.com/downloads) y creá una cuenta en [GitHub](https://github.com).
-2. En GitHub: **New repository** → nombre `ragchew-lab` → **sin** README, .gitignore ni licencia (ya vienen en esta carpeta) → **Create repository**.
-3. En una terminal, dentro de esta carpeta:
-
-```bash
-git init -b main
-git add .
-git commit -m "RagChew+ Lab 1.0.0"
-git remote add origin https://github.com/TU_USUARIO/ragchew-lab.git
-git push -u origin main
-```
-
-4. Activá la página web: en el repositorio, **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main` / `(root)` → Save**.
-5. Esperá uno o dos minutos. Tu aplicación queda en:
-
-```
-https://TU_USUARIO.github.io/ragchew-lab/
-```
-
-Ese es el enlace que podés compartir.
-
-### Actualizar después de cambios
-
-```bash
-git add .
-git commit -m "Describí qué cambiaste"
-git push
-```
-
-GitHub Pages se actualiza solo en uno o dos minutos.
-
-### Enlace corto
-
-`git.io` ya no sirve para esto: GitHub dejó de aceptar enlaces nuevos en enero de 2022 (los viejos siguen funcionando). Alternativas: ponerle al repositorio un nombre corto (por ejemplo `cw`, que da `usuario.github.io/cw`), usar un dominio propio con Pages (**Settings → Pages → Custom domain**) o un acortador de enlaces externo.
 
 ## Licencia y privacidad
 
-Todos los derechos reservados (ver `LICENSE`). Ojo: en un repositorio **público**, GitHub permite que otras personas vean y bifurquen el código según sus términos de servicio, y el navegador siempre recibe el código para poder ejecutarlo. Si preferís que otros puedan reutilizarlo con ciertas condiciones, reemplazá `LICENSE` por la licencia que elijas.
-
-La app no envía datos a ningún servidor. El historial, la libreta y los ajustes se guardan solo en el navegador de cada persona.
+FREE USE
