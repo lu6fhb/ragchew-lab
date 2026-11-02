@@ -1,6 +1,6 @@
 # Arquitectura
 
-La app es HTML + CSS + JavaScript puro, sin librerías ni pasos de compilación. Los scripts se cargan en orden desde `index.html` y comparten el mismo ámbito global (por eso las funciones y constantes de un archivo se usan en los siguientes).
+La app es HTML + CSS + JavaScript puro, sin librerías. Para usarla no hace falta compilar nada; `build.js` solo prepara la publicación (ver más abajo). Los scripts se cargan en orden desde `index.html` y comparten el mismo ámbito global (por eso las funciones y constantes de un archivo se usan en los siguientes).
 
 | Archivo | Qué contiene |
 |---|---|
@@ -17,7 +17,12 @@ La app es HTML + CSS + JavaScript puro, sin librerías ni pasos de compilación.
 | `js/11-entrenador.js` | Entrenador de copia: generación de contenido y comparación con diferencias |
 | `js/12-libreta.js` | Libreta del QSO, lista de registros y validación |
 | `js/13-ui.js` | Idioma, botones, diálogo de ajustes, ratón como paddle USB y eventos de la interfaz |
+| `js/14-pwa.js` | Registra el service worker (solo con http/https y si la página tiene manifest) |
 | `css/style.css` | Estilos (tema oscuro, panel de equipo, diálogo de ajustes) |
+| `sw.js` | Service worker: guarda la app en el dispositivo para usarla sin conexión. `build.js` reescribe sus dos primeras constantes |
+| `manifest.webmanifest` | Datos para instalarla como app (nombre, colores, íconos) |
+| `icons/` | Íconos de la app (`icon.svg`, PNG de 192, 512, maskable y apple-touch) e `og.png` (imagen al compartir el link) |
+| `build.js` | Sincroniza versiones, estampa `sw.js` y genera `dist/RagChewLab.html` |
 
 ## Cómo modificar cosas comunes
 
@@ -27,6 +32,14 @@ La app es HTML + CSS + JavaScript puro, sin librerías ni pasos de compilación.
 - **Nuevos tipos de contenido del entrenador:** en `js/11-entrenador.js`, función `genText`, y la opción en `index.html` (`#tc`).
 - **Colores:** variables al comienzo de `css/style.css`.
 
+## Publicar una versión nueva
+
+1. Subí la versión en `package.json` y en el pie de página (`· vX.Y.Z` en `js/04-i18n.js`, dos veces: español e inglés), y anotala en `CHANGELOG.md`.
+2. Corré `node build.js`. Actualiza el `?v=` de `index.html` (así el navegador no usa archivos viejos), estampa `sw.js` y regenera `dist/RagChewLab.html`.
+3. Commiteá todo, incluidos `index.html`, `sw.js` y `dist/`.
+
+`sw.js` usa la caché primero. Su versión incluye una huella del contenido de los archivos, así que cualquier cambio en la app hace que quienes la tienen instalada reciban la actualización en la visita siguiente, aunque no cambies el número de versión. Si agregás un `.js` o `.css`, referencialo en `index.html`: `build.js` lo suma solo a la lista del service worker.
+
 ## Datos guardados en el navegador (localStorage)
 
-`cwb_hist` (sesiones), `cwb_conf` (confusiones), `cwb_logbook` (libreta), `cwb_keys` (teclas), `cwb_chk`, `cwb_seen` y los ajustes de la interfaz (`cwb_<id>`). No se envía nada a ningún servidor.
+`cwb_hist` (sesiones), `cwb_conf` (confusiones), `cwb_logbook` (libreta), `cwb_keys` (teclas), `cwb_chk`, `cwb_seen` y los ajustes de la interfaz (`cwb_<id>`). No se envía nada a ningún servidor. Los archivos de la app, en cambio, quedan en la caché del service worker (`ragchew-<versión>`).

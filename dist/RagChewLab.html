@@ -10,6 +10,14 @@
 <meta name="description" content="Practicá CW con una estación virtual: keyer iámbico en el navegador, copia y feedback. Hecho por LU6FHB.">
 <meta property="og:title" content="RagChew+ Lab · LU6FHB">
 <meta property="og:description" content="Practicá QSOs en Morse con una estación virtual, desde el teclado o la pantalla táctil.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://lu6fhb.github.io/ragchew-lab/icons/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="RagChew+ Lab: práctica de CW con una estación virtual">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b1014">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%229%22%20fill%3D%22%230b1014%22%2F%3E%3Cg%20transform%3D%22translate(20%2020)%20scale(.82)%20translate(-20%20-20)%22%3E%3Crect%20x%3D%226%22%20y%3D%2217.5%22%20width%3D%2228%22%20height%3D%225%22%20rx%3D%222.5%22%20fill%3D%22%234fd1c5%22%2F%3E%3Cg%20fill%3D%22%23ffb454%22%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%225.5%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2212%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2228%22%20r%3D%222.6%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2234.5%22%20r%3D%222.6%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" type="image/svg+xml">
 <style>
 :root{color-scheme:dark;--bad:#ff7b72;--bg:#0b1014;--sf:#121a20;--sf2:#18222a;--ink:#e8eef2;--mu:#8b9ba7;--ln:#26333d;--ac:#4fd1c5;--st:#6fcf97;--me:#8fb0ff;--wa:#e0a458;
 --fp:#0d1317;--fpi:#e9f0f4;--fpm:#8fa1ad;--fpa:#ffb454;--fpc:#4fd1c5;
@@ -563,6 +571,11 @@ $('bshare').onclick=async()=>{const d={title:'RagChew+ Lab · LU6FHB',text:'RagC
 try{if(navigator.share){await navigator.share(d);return}await navigator.clipboard.writeText(d.url);status(T('link'))}catch(e){status(T('nolink'))}};
 applyLang();
 addEventListener('error',e=>{try{status('⚠ '+(e.message||'error'));line('mu','⚠',(e.message||'')+' ('+String(e.filename||'').split('/').pop()+':'+e.lineno+')')}catch(_){}});
+
+// ---- PWA: registra el service worker (solo si la página viene por http/https y tiene manifest;
+// con doble clic sobre el archivo no hace falta, y la versión dist/ no lleva manifest)
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && document.querySelector('link[rel=manifest]'))
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 </script>
 </body>
 </html>
