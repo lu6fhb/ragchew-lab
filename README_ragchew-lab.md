@@ -21,6 +21,10 @@ Hecho por [LU6FHB](https://www.qrz.com/db/LU6FHB).
 1. Descargá o cloná el repositorio.
 2. Abrí `index.html` con doble clic. (O, con Python instalado: `python3 -m http.server 8000` y entrá a `http://localhost:8000`.)
 
+## Instalarla como app
+
+Desde el sitio publicado (GitHub Pages), Chrome, Edge y Safari ofrecen instalarla («Instalar» o «Agregar a pantalla de inicio») en el celular o la computadora. Después de la primera visita funciona sin conexión.
+
 ## Versión de un solo archivo (para repartir o usar sin conexión)
 
 Requiere [Node.js](https://nodejs.org) solo para este paso:
@@ -31,15 +35,19 @@ node build.js
 
 Genera `dist/RagChewLab.html`, un único archivo que se abre con doble clic en cualquier navegador moderno.
 
+Antes de subir cambios al repositorio conviene correr `node build.js`: además de generar ese archivo, actualiza el `?v=` de `index.html` y el service worker (`sw.js`). Ver «Publicar una versión nueva» en [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md). GitHub Actions lo verifica en cada push y pull request.
+
 ## Estructura
 
 ```
 index.html        página (solo el esqueleto)
 css/style.css     estilos
 js/               código dividido en módulos numerados (ver docs/ARQUITECTURA.md)
+icons/            íconos de la app e imagen para compartir
+manifest.webmanifest, sw.js   instalación como app y uso sin conexión
 dist/             versión de un solo archivo generada con build.js
 docs/             guía de arquitectura y de cómo modificar cosas
-build.js          une todo en dist/RagChewLab.html
+build.js          sincroniza versiones, estampa sw.js y une todo en dist/RagChewLab.html
 ```
 
 La guía [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) explica qué hace cada archivo y cómo agregar estaciones, textos, idiomas o temas de charla.

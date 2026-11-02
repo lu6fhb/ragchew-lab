@@ -1,5 +1,12 @@
 # Cambios
 
+## Sin publicar
+- Se puede instalar como app (PWA) y funciona sin conexión también desde el sitio publicado: `manifest.webmanifest`, service worker (`sw.js`) y registro en `js/14-pwa.js`. La versión de un solo archivo (`dist/`) no cambia su forma de uso.
+- Íconos, favicon, color de tema e imagen (`icons/og.png`) para cuando se comparte el link.
+- `build.js` sincroniza el `?v=` de `index.html` con la versión de `package.json` (había quedado en 1.1.1, así que el navegador podía usar archivos viejos), estampa `sw.js` y avisa si el pie de página muestra otra versión.
+- Workflow de GitHub Actions (`.github/workflows/ci.yml`) que falla si `index.html`, `sw.js` o `dist/` no están al día con el código.
+- Se eliminó `RagChewLab.html` de la raíz (copia vieja); la versión de un solo archivo es `dist/RagChewLab.html`.
+
 ## 1.2.0
 - El indicativo que transmite el usuario manda siempre: si firma con otro distinto del que está en el campo (por ejemplo, LU6APR en lugar de LU6FHB, o si cambia en medio del QSO), la estación usa el que oyó. El campo solo sirve de ayuda para reparar indicativos mal manipulados.
 - Tolera errores de espaciado del lado del usuario: `LU 6FHB`, `L U 6 F H B`, `5 NN`, `5 N N`, `5 9 9`, `7 3`, `Q T H`, indicativo pegado con el final (`LU6FHBK`), `DE` pegado (`DELU6FHB`), indicativos portables (`LU6FHB/P`), reporte de dos cifras (`RST 59`) y frases como `MY NAME IS`, `I AM`, `FROM`.

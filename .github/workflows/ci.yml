@@ -1,0 +1,33 @@
+name: CI
+
+# Verifica que lo que genera `node build.js` (el ?v= de index.html, sw.js y dist/)
+# esté commiteado. No cambia cómo se publica el sitio en GitHub Pages.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generar index.html (?v=), sw.js y dist/
+        run: node build.js
+
+      - name: Verificar que lo generado esté commiteado
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --short
+            git --no-pager diff --stat
+            echo "::error::Faltó correr 'node build.js' y commitear los archivos de arriba (index.html, sw.js y dist/)."
+            exit 1
+          fi
