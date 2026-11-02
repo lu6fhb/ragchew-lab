@@ -8,7 +8,9 @@
 // Uso: node build.js
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 const root = __dirname;
-const read = f => fs.readFileSync(path.join(root, f), 'utf8');
+// Se leen con saltos de línea \n aunque el archivo tenga \r\n (Windows), para que el resultado
+// sea el mismo en cualquier computadora y en GitHub Actions.
+const read = f => fs.readFileSync(path.join(root, f), 'utf8').replace(/\r\n/g, '\n');
 const version = JSON.parse(read('package.json')).version;
 
 // 1) index.html: todas las referencias locales a css/ y js/ llevan ?v=<versión>
@@ -31,7 +33,7 @@ const local = [...synced.matchAll(/(?:href|src)="((?:css|js)\/[^"?]+)/g)].map(m 
 const files = ['index.html', ...local, 'manifest.webmanifest', 'icons/icon.svg'];
 const assets = ['./', ...files];
 const hash = crypto.createHash('sha1');
-files.forEach(f => hash.update(f).update(fs.readFileSync(path.join(root, f))));
+files.forEach(f => hash.update(f).update(read(f)));
 const stamp = version + '-' + hash.digest('hex').slice(0, 8);
 const sw = read('sw.js');
 const sw2 = sw

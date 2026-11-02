@@ -36,7 +36,7 @@ La app es HTML + CSS + JavaScript puro, sin librerías. Para usarla no hace falt
 
 1. Subí la versión en `package.json` y en el pie de página (`· vX.Y.Z` en `js/04-i18n.js`, dos veces: español e inglés), y anotala en `CHANGELOG.md`.
 2. Corré `node build.js`. Actualiza el `?v=` de `index.html` (así el navegador no usa archivos viejos), estampa `sw.js` y regenera `dist/RagChewLab.html`.
-3. Commiteá todo, incluidos `index.html`, `sw.js` y `dist/`.
+3. Commiteá todo, incluidos `index.html`, `sw.js` y `dist/`. El workflow `.github/workflows/ci.yml` corre `node build.js` en cada push y pull request y falla si queda algo sin commitear.
 
 `sw.js` usa la caché primero. Su versión incluye una huella del contenido de los archivos, así que cualquier cambio en la app hace que quienes la tienen instalada reciban la actualización en la visita siguiente, aunque no cambies el número de versión. Si agregás un `.js` o `.css`, referencialo en `index.html`: `build.js` lo suma solo a la lista del service worker.
 

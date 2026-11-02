@@ -35,7 +35,7 @@ node build.js
 
 Genera `dist/RagChewLab.html`, un único archivo que se abre con doble clic en cualquier navegador moderno.
 
-Antes de subir cambios al repositorio conviene correr `node build.js`: además de generar ese archivo, actualiza el `?v=` de `index.html` y el service worker (`sw.js`). Ver «Publicar una versión nueva» en [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md).
+Antes de subir cambios al repositorio conviene correr `node build.js`: además de generar ese archivo, actualiza el `?v=` de `index.html` y el service worker (`sw.js`). Ver «Publicar una versión nueva» en [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md). GitHub Actions lo verifica en cada push y pull request.
 
 ## Estructura
 
